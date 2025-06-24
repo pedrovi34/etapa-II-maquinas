@@ -1,17 +1,9 @@
-#ifndef LISTA_H
-#define LISTA_H
+#ifndef INTERPRET_H
+#define INTERPRET_H
 
-struct node {
-    char key[15];
-    int value;
-    struct node* next;
-};
+#include "stack.h"
+#include "lista.h"
 
-struct list {
-    struct node* first;
-};
-
-void set_variable(struct list* l, const char* key, int value);
-int get_variable(struct list* l, const char* key, int* found);
+void interpret(const char *source, Stack *s, struct list *l);
 
 #endif
