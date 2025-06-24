@@ -2,7 +2,8 @@
 #define INTERPRET_H
 
 #include "stack.h"
+#include "lista.h"
 
-void interpret(const char *source, Stack *s);
+void interpret(const char *source, Stack *s, struct list *l);
 
-#endif 
+#endif
