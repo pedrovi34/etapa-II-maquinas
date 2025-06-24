@@ -1,36 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "stack.h"
+#include <string.h>
+#include "lista.h"
 
-Stack* new_stack(int size) {
-    Stack* s = (Stack*)malloc(sizeof(Stack));
-    s->data = (int*)malloc(sizeof(int) * size);
-    s->top = -1;
-    s->size = size;
-    return s;
+void set_variable(struct list* l, const char* key, int value) {
+    struct node* current = l->first;
+    while (current) {
+        if (strcmp(current->key, key) == 0) {
+            current->value = value;
+            return;
+        }
+        current = current->next;
+    }
+    // Se não encontrou, cria nova variável
+    struct node* new_node = (struct node*)malloc(sizeof(struct node));
+    strncpy(new_node->key, key, sizeof(new_node->key));
+    new_node->value = value;
+    new_node->next = l->first;
+    l->first = new_node;
 }
 
-void stack_push(Stack* s, int value) {
-    if (s->top < s->size - 1) {
-        s->data[++s->top] = value;
-    } else {
-        printf("Pilha cheia!\n");
+int get_variable(struct list* l, const char* key, int* found) {
+    struct node* current = l->first;
+    while (current) {
+        if (strcmp(current->key, key) == 0) {
+            *found = 1;
+            return current->value;
+        }
+        current = current->next;
     }
-}
-
-int stack_pop(Stack* s) {
-    if (s->top >= 0) {
-        return s->data[s->top--];
-    } else {
-        printf("Pilha vazia!\n");
-        return -1;
-    }
-}
-
-void stack_print(Stack* s) {
-    printf("Conteúdo da pilha: ");
-    for (int i = 0; i <= s->top; i++) {
-        printf("%d ", s->data[i]);
-    }
-    printf("\n");
+    *found = 0;
+    return 0;
 }
