@@ -1,15 +1,17 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef LISTA_H
+#define LISTA_H
 
-typedef struct stack {
-    int *data;
-    int top;
-    int size;
-} Stack;
+struct node {
+    char key[15];
+    int value;
+    struct node* next;
+};
 
-Stack* new_stack(int size);
-void stack_push(Stack* s, int value);
-int stack_pop(Stack* s);
-void stack_print(Stack* s);
+struct list {
+    struct node* first;
+};
 
-#endif // STACK_H
+void set_variable(struct list* l, const char* key, int value);
+int get_variable(struct list* l, const char* key, int* found);
+
+#endif
